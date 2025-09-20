@@ -1,0 +1,11 @@
+/.DS_Store
+/index.d.ts
+/index.d.ts.map
+/index.js
+/index.js.map
+/llmocr.js
+/node_modules
+/package-lock.json
+/package.json
+/tester
+/tsconfig.json
