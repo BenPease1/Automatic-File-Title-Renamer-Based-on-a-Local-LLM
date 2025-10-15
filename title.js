@@ -23,7 +23,7 @@ async function pdfToPng() {
             oldFilesPath_list.push(fullPath);
             newFilesPath_list.push(pdfFolder);
             fs.mkdirSync(pdfFolder);
-            const cmd = `/opt/homebrew/bin/pdftoppm -png -r 300 "${oldFilesPath_list[i]}" ${newFilesPath_list[i]}/pdfPNG${i}`;
+            const cmd = `/opt/homebrew/bin/pdftoppm -l 3 -png -r 300 "${oldFilesPath_list[i]}" ${newFilesPath_list[i]}/pdfPNG${i}`;
             // ↓↓↓ wait for this shell command to finish before continuing
             await execAsync(cmd);
             console.log(`Saved ${file} as Images`);
@@ -46,7 +46,7 @@ async function pdfRenamer() {
         }
         const model = await client.llm.model("qwen/qwen2.5-vl-7b");
         const result = await model.respond([
-            { role: "user", content: `These are notes from my classes MATH 295, PHYSICS 160, ASIANLAN 407, and CLCIV 101, please look at the document and return just what you see as the title at the top of the document. Note: that the title should contain one of the classes that I listed earlier. Further note: if no class title is given then you can make up a title based on the content`, images: images_list },
+            { role: "user", content: `These are my notes from various classes throughout my schooling. Please look at the document and return what you see as the title at the top of the document and append (with a " - ") a two to four-word description of what that document is generally about. Some examples of this include "Homework 3.4 - Gaussian Elimination" or "Lecture 5 - Winding Numbers" Just return the output of this query as the document title, no other words. `, images: images_list },
         ]);
         responses_list.push(result.content)
         console.log(oldFilesPath_list[i]);
